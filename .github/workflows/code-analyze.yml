@@ -7,11 +7,15 @@ on:
 
 jobs:
   default:
-    runs-on: salesforce/salesforcedx:latest-full
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Install sfdx
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
       - name: Install Salesforce Code Analyzer
         run: |
           sfdx plugins:install @salesforce/sfdx-scanner
