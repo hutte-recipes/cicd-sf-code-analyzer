@@ -1,6 +1,10 @@
 # Based on https://github.com/mehdisfdc/sfdx-GitHub-actions/blob/main/.github/workflows/main.yml
 name: Salesforce Code Quality
 
+on:
+  workflow_dispatch
+  workflow_call
+
 jobs:
   default:
     runs-on: salesforce/salesforcedx:latest-full
