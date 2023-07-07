@@ -10,7 +10,3 @@ jobs:
     name: Run Salesforce Code Analyzer
     uses: ./.github/workflows/code-analyze.yml
     secrets: inherit
-    with:
-      # Note: This requires the merged PR to only have a single commit or merge commit
-      baseRef: "HEAD~1"
-      targetRef: "HEAD"
