@@ -3,6 +3,8 @@
 > This recipe uses [Salesforce Code Analyzer](https://forcedotcom.github.io/sfdx-scanner/) to perform a Quality Scan of the metadata. This repository contains intended vulnerabilities to showcase the findings of the scans.
 
 Example:
+
+![](./documentation/prScan.png)
 ![](./documentation/retireJsFinding.png)
 
 
