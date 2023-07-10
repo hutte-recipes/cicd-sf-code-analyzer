@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  default:
+  PMD:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,12 +22,54 @@ jobs:
       - name: SF Code Analyzer - PMD
         run: |
           sfdx scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table --severity-threshold 3
+      
+  RetireJS:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install sfdx
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+      - name: Install Salesforce Code Analyzer
+        run: |
+          sfdx plugins:install @salesforce/sfdx-scanner    
       - name: SF Code Analyzer - RetireJS
         run: |
           sfdx scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3 
+      
+  GraphEngine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install sfdx
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+      - name: Install Salesforce Code Analyzer
+        run: |
+          sfdx plugins:install @salesforce/sfdx-scanner    
       - name: SF Code Analyzer - Data Flow Analysis
         run: |
           sfdx scanner:run:dfa --target force-app --projectdir force-app --format table --severity-threshold 3
+
+  ESLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install sfdx
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+      - name: Install Salesforce Code Analyzer
+        run: |
+          sfdx plugins:install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - ESLint
         run: |
           sfdx scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table --severity-threshold 3
