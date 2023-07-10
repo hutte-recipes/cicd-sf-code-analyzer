@@ -21,15 +21,15 @@ jobs:
           sfdx plugins:install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - PMD
         run: |
-          sfdx scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table
+          sfdx scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table --severity-threshold 3
       - name: SF Code Analyzer - RetireJS
         run: |
-          sfdx scanner:run --engine "retire-js" --target force-app --format table 
+          sfdx scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3 
       - name: SF Code Analyzer - Data Flow Analysis
         run: |
-          sfdx scanner:run:dfa --target force-app --projectdir force-app --format table
+          sfdx scanner:run:dfa --target force-app --projectdir force-app --format table --severity-threshold 3
       - name: SF Code Analyzer - ESLint
         run: |
-          sfdx scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table
+          sfdx scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table --severity-threshold 3
         
       
