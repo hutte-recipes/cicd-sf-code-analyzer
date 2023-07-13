@@ -11,7 +11,6 @@ Example:
 ## Prerequisites
 
 - a GitHub repository with a valid sfdx project
-- sfdx-scanner plugin (`sfdx plugins:install @salesforce/sfdx-scanner`)
 
 ## Steps
 
