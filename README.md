@@ -16,7 +16,7 @@ Example:
 
 ### Step 1
 
-Create the following three GitHub Workflows:
+Create the following three GitHub Workflows and PMD Ruleset:
 
 `.github/workflows/code-analyze.yml`
 
