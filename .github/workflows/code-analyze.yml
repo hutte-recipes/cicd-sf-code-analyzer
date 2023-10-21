@@ -1,4 +1,3 @@
-# Based on https://github.com/mehdisfdc/sfdx-GitHub-actions/blob/main/.github/workflows/main.yml
 name: Salesforce Code Quality
 
 on:
@@ -9,65 +8,51 @@ jobs:
   PMD:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-      - name: Setup SFDX
+      - name: Setup Salesforce CLI
         run: |
-          npm install --global sfdx-cli
-          sfdx --version
-          sfdx plugins:install @salesforce/sfdx-scanner
+          npm install --global @salesforce/cli
+          sf plugins:install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - PMD
         run: |
-          sfdx scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table --severity-threshold 3
-      
+          sf scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table --severity-threshold 3
+
   RetireJS:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-      - name: Setup SFDX
+      - name: Setup Salesforce CLI
         run: |
-          npm install --global sfdx-cli
-          sfdx --version
-          sfdx plugins:install @salesforce/sfdx-scanner 
+          npm install --global @salesforce/cli
+          sf plugins:install @salesforce/sfdx-scanner 
       - name: SF Code Analyzer - RetireJS
         run: |
-          sfdx scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3 
-      
+          sf scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3 
+
   GraphEngine:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-      - name: Setup SFDX
+      - name: Setup Salesforce CLI
         run: |
-          npm install --global sfdx-cli
-          sfdx --version
-          sfdx plugins:install @salesforce/sfdx-scanner 
+          npm install --global @salesforce/cli
+          sf plugins:install @salesforce/sfdx-scanner 
       - name: SF Code Analyzer - Data Flow Analysis
         run: |
-          sfdx scanner:run:dfa --target force-app --projectdir force-app --format table --severity-threshold 3
+          sf scanner:run:dfa --target force-app --projectdir force-app --format table --severity-threshold 3
 
   ESLint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-      - name: Setup SFDX
+      - name: Setup Salesforce CLI
         run: |
-          npm install --global sfdx-cli
-          sfdx --version
-          sfdx plugins:install @salesforce/sfdx-scanner
+          npm install --global @salesforce/cli
+          sf plugins:install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - ESLint
         run: |
-          sfdx scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table --severity-threshold 3
-        
-      
+          sf scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table --severity-threshold 3
