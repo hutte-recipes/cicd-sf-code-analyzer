@@ -7,16 +7,13 @@ Example:
 ![](./documentation/prScan.png)
 ![](./documentation/retireJsFinding.png)
 
-
 ## Prerequisites
 
 - a GitHub repository with a valid sfdx project
 
-## Steps
+## Step 1: Create GitHub Workflows and PMD Ruleset
 
-### Step 1
-
-Create the following three GitHub Workflows and PMD Ruleset:
+Create the following three files:
 
 `.github/workflows/code-analyze.yml`
 
@@ -36,7 +33,7 @@ jobs:
       - name: Setup Salesforce CLI
         run: |
           npm install --global @salesforce/cli
-          sf plugins:install @salesforce/sfdx-scanner
+          sf plugins install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - PMD
         run: |
           sf scanner:run --engine pmd --target force-app --pmdconfig=pmd/ruleset.xml --format table --severity-threshold 3
@@ -49,10 +46,10 @@ jobs:
       - name: Setup Salesforce CLI
         run: |
           npm install --global @salesforce/cli
-          sf plugins:install @salesforce/sfdx-scanner 
+          sf plugins:install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - RetireJS
         run: |
-          sf scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3 
+          sf scanner:run --engine "retire-js" --target force-app --format table --severity-threshold 3
 
   GraphEngine:
     runs-on: ubuntu-latest
@@ -62,7 +59,7 @@ jobs:
       - name: Setup Salesforce CLI
         run: |
           npm install --global @salesforce/cli
-          sf plugins:install @salesforce/sfdx-scanner 
+          sf plugins install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - Data Flow Analysis
         run: |
           sf scanner:run:dfa --target force-app --projectdir force-app --format table --severity-threshold 3
@@ -75,15 +72,15 @@ jobs:
       - name: Setup Salesforce CLI
         run: |
           npm install --global @salesforce/cli
-          sf plugins:install @salesforce/sfdx-scanner
+          sf plugins install @salesforce/sfdx-scanner
       - name: SF Code Analyzer - ESLint
         run: |
           sf scanner:run --engine eslint --eslintconfig=.eslintrc.json --target "force-app/**/*.js" --format table --severity-threshold 3
 ```
+
 **Note 1**: Each tool scan (engine) runs in an independent job, therefore you may exclude any of those if desired.
 
 **Note 2**: The scans are configured to run in parallel, although those can be refactored to run sequentially, either by joining them into the same job or using the [`needs`](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow#defining-prerequisite-jobs) property in those.
-
 
 `.github/workflows/pr.yml`
 
@@ -140,14 +137,12 @@ jobs:
 </ruleset>
 ```
 
-### Step 2
+## Step 2: Validate
 
 - Create a PR and verify the Action was run successfully
 - Merge the PR and verify the Action was run successfully
 
-****
-## Other Git Platforms
+Example:
 
-It's in Hutte Roadmap to provide the translation of this recipe for other platforms like `Gitlab`, `Azure DevOps`, and `Bitbucket`.
-
-****
+![](./documentation/prScan.png)
+![](./documentation/retireJsFinding.png)
